@@ -85,5 +85,5 @@ export const NOOP = () => undefined;
 // constants
 
 export const EMITTED_NOTIFICATIONS = [
-  'eth_subscription', // per eth-json-rpc-filters/subscriptionManager
+  'stc_subscription', // per eth-json-rpc-filters/subscriptionManager
 ];

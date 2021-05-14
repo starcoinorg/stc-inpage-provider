@@ -409,14 +409,14 @@ describe('MetaMaskInpageProvider: RPC', () => {
       });
     });
 
-    it('calls _handleAccountsChanged on request for eth_accounts', async () => {
+    it('calls _handleAccountsChanged on request for stc_accounts', async () => {
       setNextRpcEngineResponse(null, { result: ['0x1'] });
       await new Promise((done) => {
         provider._rpcRequest(
-          { method: 'eth_accounts' },
+          { method: 'stc_accounts' },
           (err: any, res: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: 'eth_accounts' }),
+              expect.objectContaining({ method: 'stc_accounts' }),
               expect.any(Function),
             );
 
@@ -433,14 +433,14 @@ describe('MetaMaskInpageProvider: RPC', () => {
       });
     });
 
-    it('calls _handleAccountsChanged with empty array on eth_accounts request returning error', async () => {
+    it('calls _handleAccountsChanged with empty array on stc_accounts request returning error', async () => {
       setNextRpcEngineResponse(new Error('foo'), { error: 'foo' });
       await new Promise((done) => {
         provider._rpcRequest(
-          { method: 'eth_accounts' },
+          { method: 'stc_accounts' },
           (err: any, res: any) => {
             expect(provider._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: 'eth_accounts' }),
+              expect.objectContaining({ method: 'stc_accounts' }),
               expect.any(Function),
             );
 
@@ -585,23 +585,23 @@ describe('MetaMaskInpageProvider: RPC', () => {
     });
 
     describe('object-only signature handles "synchronous" RPC methods', () => {
-      it('eth_accounts', () => {
-        const result = provider.send({ method: 'eth_accounts' });
+      it('stc_accounts', () => {
+        const result = provider.send({ method: 'stc_accounts' });
         expect(result).toMatchObject({
           result: [],
         });
       });
 
-      it('eth_coinbase', () => {
-        const result = provider.send({ method: 'eth_coinbase' });
+      it('stc_coinbase', () => {
+        const result = provider.send({ method: 'stc_coinbase' });
         expect(result).toMatchObject({
           result: null,
         });
       });
 
-      it('eth_uninstallFilter', () => {
+      it('stc_uninstallFilter', () => {
         const result = provider.send({
-          method: 'eth_uninstallFilter',
+          method: 'stc_uninstallFilter',
           params: ['bar'],
         });
         expect(result).toMatchObject({
@@ -609,7 +609,7 @@ describe('MetaMaskInpageProvider: RPC', () => {
         });
         expect(provider._rpcRequest).toHaveBeenCalledWith(
           expect.objectContaining({
-            method: 'eth_uninstallFilter',
+            method: 'stc_uninstallFilter',
             params: ['bar'],
           }),
           expect.any(Function),

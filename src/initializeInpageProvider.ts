@@ -74,6 +74,6 @@ export function initializeProvider({
 export function setGlobalProvider(
   providerInstance: MetaMaskInpageProvider,
 ): void {
-  (window as Record<string, any>).ethereum = providerInstance;
-  window.dispatchEvent(new Event('ethereum#initialized'));
+  (window as Record<string, any>).starcoin = providerInstance;
+  window.dispatchEvent(new Event('starcoin#initialized'));
 }

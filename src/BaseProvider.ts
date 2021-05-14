@@ -114,7 +114,7 @@ export default class BaseProvider extends SafeEventEmitter {
   constructor(
     connectionStream: Duplex,
     {
-      jsonRpcStreamName = 'metamask-provider',
+      jsonRpcStreamName = 'starmask-provider',
       logger = console,
       maxEventListeners = 100,
     }: BaseProviderOptions = {},
@@ -154,7 +154,7 @@ export default class BaseProvider extends SafeEventEmitter {
       connectionStream,
       (mux as unknown) as Duplex,
       connectionStream,
-      this._handleStreamDisconnect.bind(this, 'MetaMask'),
+      this._handleStreamDisconnect.bind(this, 'StarMask'),
     );
 
     // setup own event listeners
@@ -171,7 +171,7 @@ export default class BaseProvider extends SafeEventEmitter {
       this._jsonRpcConnection.stream,
       (mux.createStream(jsonRpcStreamName) as unknown) as Duplex,
       this._jsonRpcConnection.stream,
-      this._handleStreamDisconnect.bind(this, 'MetaMask RpcProvider'),
+      this._handleStreamDisconnect.bind(this, 'StarMask RpcProvider'),
     );
 
     // handle RPC requests via dapp-side rpc engine
@@ -295,7 +295,7 @@ export default class BaseProvider extends SafeEventEmitter {
       this._handleAccountsChanged(accounts);
     } catch (error) {
       this._log.error(
-        'MetaMask: Failed to get initial state. Please report this bug.',
+        'StarMask: Failed to get initial state. Please report this bug.',
         error,
       );
     } finally {
@@ -323,14 +323,14 @@ export default class BaseProvider extends SafeEventEmitter {
       }
 
       if (
-        payload.method === 'eth_accounts' ||
-        payload.method === 'eth_requestAccounts'
+        payload.method === 'stc_accounts' ||
+        payload.method === 'stc_requestAccounts'
       ) {
         // handle accounts changing
         cb = (err: Error, res: JsonRpcSuccess<string[]>) => {
           this._handleAccountsChanged(
             res.result || [],
-            payload.method === 'eth_accounts',
+            payload.method === 'stc_accounts',
           );
           callback(err, res);
         };
@@ -430,7 +430,7 @@ export default class BaseProvider extends SafeEventEmitter {
       typeof networkVersion !== 'string'
     ) {
       this._log.error(
-        'MetaMask: Received invalid network parameters. Please report this bug.',
+        'StarMask: Received invalid network parameters. Please report this bug.',
         { chainId, networkVersion },
       );
       return;
@@ -457,7 +457,7 @@ export default class BaseProvider extends SafeEventEmitter {
    *
    * @param accounts - The new accounts value.
    * @param isEthAccounts - Whether the accounts value was returned by
-   * a call to eth_accounts.
+   * a call to stc_accounts.
    */
   protected _handleAccountsChanged(
     accounts: unknown[],
@@ -467,7 +467,7 @@ export default class BaseProvider extends SafeEventEmitter {
 
     if (!Array.isArray(accounts)) {
       this._log.error(
-        'MetaMask: Received invalid accounts parameter. Please report this bug.',
+        'StarMask: Received invalid accounts parameter. Please report this bug.',
         accounts,
       );
       _accounts = [];
@@ -476,7 +476,7 @@ export default class BaseProvider extends SafeEventEmitter {
     for (const account of accounts) {
       if (typeof account !== 'string') {
         this._log.error(
-          'MetaMask: Received non-string account. Please report this bug.',
+          'StarMask: Received non-string account. Please report this bug.',
           accounts,
         );
         _accounts = [];
@@ -486,11 +486,11 @@ export default class BaseProvider extends SafeEventEmitter {
 
     // emit accountsChanged if anything about the accounts array has changed
     if (!dequal(this._state.accounts, _accounts)) {
-      // we should always have the correct accounts even before eth_accounts
+      // we should always have the correct accounts even before stc_accounts
       // returns
       if (isEthAccounts && this._state.accounts !== null) {
         this._log.error(
-          `MetaMask: 'eth_accounts' unexpectedly updated accounts. Please report this bug.`,
+          `StarMask: 'stc_accounts' unexpectedly updated accounts. Please report this bug.`,
           _accounts,
         );
       }
@@ -527,7 +527,7 @@ export default class BaseProvider extends SafeEventEmitter {
   }: { accounts?: string[]; isUnlocked?: boolean } = {}) {
     if (typeof isUnlocked !== 'boolean') {
       this._log.error(
-        'MetaMask: Received invalid isUnlocked parameter. Please report this bug.',
+        'StarMask: Received invalid isUnlocked parameter. Please report this bug.',
       );
       return;
     }

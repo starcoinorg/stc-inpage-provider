@@ -11,10 +11,10 @@ import BaseProvider, {
 
 export interface SendSyncJsonRpcRequest extends JsonRpcRequest<unknown> {
   method:
-    | 'eth_accounts'
-    | 'eth_coinbase'
-    | 'eth_uninstallFilter'
-    | 'net_version';
+  | 'stc_accounts'
+  | 'stc_coinbase'
+  | 'stc_uninstallFilter'
+  | 'net_version';
 }
 
 type WarningEventName = keyof SentWarningsState['events'];
@@ -58,7 +58,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
   /**
    * Experimental methods can be found here.
    */
-  public readonly _metamask: ReturnType<
+  public readonly _starmask: ReturnType<
     MetaMaskInpageProvider['_getExperimentalApi']
   >;
 
@@ -67,7 +67,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
   /**
    * Indicating that this provider is a MetaMask provider.
    */
-  public readonly isMetaMask: true;
+  public readonly isStarMask: true;
 
   /**
    * @param connectionStream - A Node.js duplex stream
@@ -83,7 +83,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
   constructor(
     connectionStream: Duplex,
     {
-      jsonRpcStreamName = 'metamask-provider',
+      jsonRpcStreamName = 'starmask-provider',
       logger = console,
       maxEventListeners = 100,
       shouldSendMetadata = true,
@@ -92,7 +92,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
     super(connectionStream, { jsonRpcStreamName, logger, maxEventListeners });
 
     this.networkVersion = null;
-    this.isMetaMask = true;
+    this.isStarMask = true;
 
     this._sendSync = this._sendSync.bind(this);
     this.enable = this.enable.bind(this);
@@ -100,7 +100,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
     this.sendAsync = this.sendAsync.bind(this);
     this._warnOfDeprecation = this._warnOfDeprecation.bind(this);
 
-    this._metamask = this._getExperimentalApi();
+    this._starmask = this._getExperimentalApi();
 
     // handle JSON-RPC notifications
     this._jsonRpcConnection.events.on('notification', (payload) => {
@@ -219,9 +219,9 @@ export default class MetaMaskInpageProvider extends BaseProvider {
   //====================
 
   /**
-   * Equivalent to: ethereum.request('eth_requestAccounts')
+   * Equivalent to: ethereum.request('stc_requestAccounts')
    *
-   * @deprecated Use request({ method: 'eth_requestAccounts' }) instead.
+   * @deprecated Use request({ method: 'stc_requestAccounts' }) instead.
    * @returns A promise that resolves to an array of addresses.
    */
   enable(): Promise<string[]> {
@@ -233,7 +233,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
     return new Promise<string[]>((resolve, reject) => {
       try {
         this._rpcRequest(
-          { method: 'eth_requestAccounts', params: [] },
+          { method: 'stc_requestAccounts', params: [] },
           getRpcPromiseCallback(resolve, reject),
         );
       } catch (error) {
@@ -317,15 +317,15 @@ export default class MetaMaskInpageProvider extends BaseProvider {
   protected _sendSync(payload: SendSyncJsonRpcRequest) {
     let result;
     switch (payload.method) {
-      case 'eth_accounts':
+      case 'stc_accounts':
         result = this.selectedAddress ? [this.selectedAddress] : [];
         break;
 
-      case 'eth_coinbase':
+      case 'stc_coinbase':
         result = this.selectedAddress || null;
         break;
 
-      case 'eth_uninstallFilter':
+      case 'stc_uninstallFilter':
         this._rpcRequest(payload, NOOP);
         result = true;
         break;
@@ -347,7 +347,7 @@ export default class MetaMaskInpageProvider extends BaseProvider {
 
   /**
    * Constructor helper.
-   * Gets experimental _metamask API as Proxy, so that we can warn consumers
+   * Gets experimental _starmask API as Proxy, so that we can warn consumers
    * about its experiment nature.
    */
   protected _getExperimentalApi() {

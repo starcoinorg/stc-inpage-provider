@@ -16,7 +16,7 @@ export default function createMetaMaskExternalExtensionProvider() {
     const pluginStream = new PortStream(metamaskPort);
     provider = new BaseProvider(pluginStream);
   } catch (e) {
-    console.dir(`Metamask connect error `, e);
+    console.dir(`Starmask connect error `, e);
     throw e;
   }
   return provider;

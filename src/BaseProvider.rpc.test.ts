@@ -263,14 +263,14 @@ describe('BaseProvider: RPC', () => {
       });
     });
 
-    it('calls _handleAccountsChanged on request for eth_accounts', async () => {
+    it('calls _handleAccountsChanged on request for stc_accounts', async () => {
       setNextRpcEngineResponse(null, { result: ['0x1'] });
       await new Promise((done) => {
         (provider as any)._rpcRequest(
-          { method: 'eth_accounts' },
+          { method: 'stc_accounts' },
           (err: Error | null, res: any) => {
             expect((provider as any)._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: 'eth_accounts' }),
+              expect.objectContaining({ method: 'stc_accounts' }),
               expect.any(Function),
             );
 
@@ -286,14 +286,14 @@ describe('BaseProvider: RPC', () => {
       });
     });
 
-    it('calls _handleAccountsChanged with empty array on eth_accounts request returning error', async () => {
+    it('calls _handleAccountsChanged with empty array on stc_accounts request returning error', async () => {
       setNextRpcEngineResponse(new Error('foo'), { error: 'foo' });
       await new Promise((done) => {
         (provider as any)._rpcRequest(
-          { method: 'eth_accounts' },
+          { method: 'stc_accounts' },
           (err: Error | null, res: any) => {
             expect((provider as any)._rpcEngine.handle).toHaveBeenCalledWith(
-              expect.objectContaining({ method: 'eth_accounts' }),
+              expect.objectContaining({ method: 'stc_accounts' }),
               expect.any(Function),
             );
 
