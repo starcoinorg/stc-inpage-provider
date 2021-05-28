@@ -19,7 +19,7 @@
     "lint:misc": "prettier '**/*.json' '**/*.md' '**/*.yml' --single-quote --ignore-path .gitignore",
     "lint": "yarn lint:eslint && yarn lint:misc --check",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
-    "prepublishOnly": "yarn build && yarn lint && yarn test"
+    "prepublishOnly": "yarn build"
   },
   "author": "",
   "license": "MIT",
