@@ -2,7 +2,6 @@ import { Duplex } from 'stream';
 import MetaMaskInpageProvider, {
   MetaMaskInpageProviderOptions,
 } from './MetaMaskInpageProvider';
-import shimWeb3 from './shimWeb3';
 
 interface InitializeProviderOptions extends MetaMaskInpageProviderOptions {
   /**
@@ -14,11 +13,6 @@ interface InitializeProviderOptions extends MetaMaskInpageProviderOptions {
    * Whether the provider should be set as window.ethereum.
    */
   shouldSetOnWindow?: boolean;
-
-  /**
-   * Whether the window.web3 shim should be set.
-   */
-  shouldShimWeb3?: boolean;
 }
 
 /**
@@ -30,7 +24,6 @@ interface InitializeProviderOptions extends MetaMaskInpageProviderOptions {
  * @param options.maxEventListeners - The maximum number of event listeners.
  * @param options.shouldSendMetadata - Whether the provider should send page metadata.
  * @param options.shouldSetOnWindow - Whether the provider should be set as window.ethereum.
- * @param options.shouldShimWeb3 - Whether a window.web3 shim should be injected.
  * @returns The initialized provider (whether set or not).
  */
 export function initializeProvider({
@@ -40,7 +33,6 @@ export function initializeProvider({
   maxEventListeners = 100,
   shouldSendMetadata = true,
   shouldSetOnWindow = true,
-  shouldShimWeb3 = false,
 }: InitializeProviderOptions): MetaMaskInpageProvider {
   let provider = new MetaMaskInpageProvider(connectionStream, {
     jsonRpcStreamName,
@@ -56,10 +48,6 @@ export function initializeProvider({
 
   if (shouldSetOnWindow) {
     setGlobalProvider(provider);
-  }
-
-  if (shouldShimWeb3) {
-    shimWeb3(provider, logger);
   }
 
   return provider;
