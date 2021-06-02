@@ -54,8 +54,8 @@ export function initializeProvider({
 }
 
 /**
- * Sets the given provider instance as window.ethereum and dispatches the
- * 'ethereum#initialized' event on window.
+ * Sets the given provider instance as window.starcoin and dispatches the
+ * 'starcoin#initialized' event on window.
  *
  * @param providerInstance - The provider instance.
  */

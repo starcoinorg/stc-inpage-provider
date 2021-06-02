@@ -1,13 +1,13 @@
 const messages = {
   errors: {
     disconnected: () =>
-      'MetaMask: Disconnected from chain. Attempting to connect.',
+      'StarMask: Disconnected from chain. Attempting to connect.',
     permanentlyDisconnected: () =>
-      'MetaMask: Disconnected from MetaMask background. Page reload required.',
+      'StarMask: Disconnected from StarMask background. Page reload required.',
     sendSiteMetadata: () =>
-      `MetaMask: Failed to send site metadata. This is an internal error, please report this bug.`,
+      `StarMask: Failed to send site metadata. This is an internal error, please report this bug.`,
     unsupportedSync: (method: string) =>
-      `MetaMask: The MetaMask Ethereum provider does not support synchronous methods like ${method} without a callback parameter.`,
+      `StarMask: The StarMask Starcoin provider does not support synchronous methods like ${method} without a callback parameter.`,
     invalidDuplexStream: () => 'Must provide a Node.js-style duplex stream.',
     invalidRequestArgs: () => `Expected a single, non-array, object argument.`,
     invalidRequestMethod: () => `'args.method' must be a non-empty string.`,
@@ -19,21 +19,21 @@ const messages = {
   },
   info: {
     connected: (chainId: string) =>
-      `MetaMask: Connected to chain with ID "${chainId}".`,
+      `StarMask: Connected to chain with ID "${chainId}".`,
   },
   warnings: {
     // deprecated methods
-    enableDeprecation: `MetaMask: 'ethereum.enable()' is deprecated and may be removed in the future. Please use the 'stc_requestAccounts' RPC method instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1102`,
-    sendDeprecation: `MetaMask: 'ethereum.send(...)' is deprecated and may be removed in the future. Please use 'ethereum.sendAsync(...)' or 'ethereum.request(...)' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193`,
+    enableDeprecation: `StarMask: 'starcoin.enable()' is deprecated and may be removed in the future. Please use the 'stc_requestAccounts' RPC method instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1102`,
+    sendDeprecation: `StarMask: 'starcoin.send(...)' is deprecated and may be removed in the future. Please use 'starcoin.sendAsync(...)' or 'starcoin.request(...)' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193`,
     // deprecated events
     events: {
-      close: `MetaMask: The event 'close' is deprecated and may be removed in the future. Please use 'disconnect' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#disconnect`,
-      data: `MetaMask: The event 'data' is deprecated and will be removed in the future. Use 'message' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`,
-      networkChanged: `MetaMask: The event 'networkChanged' is deprecated and may be removed in the future. Use 'chainChanged' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#chainchanged`,
-      notification: `MetaMask: The event 'notification' is deprecated and may be removed in the future. Use 'message' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`,
+      close: `StarMask: The event 'close' is deprecated and may be removed in the future. Please use 'disconnect' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#disconnect`,
+      data: `StarMask: The event 'data' is deprecated and will be removed in the future. Use 'message' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`,
+      networkChanged: `StarMask: The event 'networkChanged' is deprecated and may be removed in the future. Use 'chainChanged' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#chainchanged`,
+      notification: `StarMask: The event 'notification' is deprecated and may be removed in the future. Use 'message' instead.\nFor more information, see: https://eips.ethereum.org/EIPS/eip-1193#message`,
     },
     // misc
-    experimentalMethods: `MetaMask: 'ethereum._metamask' exposes non-standard, experimental methods. They may be removed or changed without warning.`,
+    experimentalMethods: `StarMask: 'starcoin._metamask' exposes non-standard, experimental methods. They may be removed or changed without warning.`,
   },
 };
 export default messages;
