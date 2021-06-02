@@ -268,7 +268,7 @@ export default class BaseProvider extends SafeEventEmitter {
 
   /**
    * Constructor helper.
-   * Populates initial state by calling 'metamask_getProviderState' and emits
+   * Populates initial state by calling 'starmask_getProviderState' and emits
    * necessary events.
    */
   private async _initializeState() {
@@ -279,7 +279,7 @@ export default class BaseProvider extends SafeEventEmitter {
         isUnlocked,
         networkVersion,
       } = (await this.request({
-        method: 'metamask_getProviderState',
+        method: 'starmask_getProviderState',
       })) as {
         accounts: string[];
         chainId: string;
