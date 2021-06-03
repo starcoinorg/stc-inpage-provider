@@ -197,7 +197,7 @@ export default class BaseProvider extends SafeEventEmitter {
           type: method,
           data: params,
         });
-      } else if (method === 'METAMASK_STREAM_FAILURE') {
+      } else if (method === 'STARMASK_STREAM_FAILURE') {
         connectionStream.destroy(
           new Error(messages.errors.permanentlyDisconnected()),
         );
