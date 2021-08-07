@@ -11,6 +11,7 @@ import BaseProvider, {
 
 export interface SendSyncJsonRpcRequest extends JsonRpcRequest<unknown> {
   method:
+  | 'contract.call'
   | 'stc_accounts'
   | 'stc_coinbase'
   | 'stc_uninstallFilter'

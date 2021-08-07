@@ -34,7 +34,8 @@ export function createErrorMiddleware(
       if (!error) {
         return done();
       }
-      log.error(`StarMask - RPC Error: ${error.message}`, error);
+      log.error(res);
+      log.error(`StarMask - RPC Error: ${ error.message }`, error);
       return done();
     });
   };
@@ -70,9 +71,9 @@ export function logStreamDisconnectWarning(
   error: Error,
   emitter: EventEmitter,
 ): void {
-  let warningMsg = `StarMask: Lost connection to "${remoteLabel}".`;
+  let warningMsg = `StarMask: Lost connection to "${ remoteLabel }".`;
   if (error?.stack) {
-    warningMsg += `\n${error.stack}`;
+    warningMsg += `\n${ error.stack }`;
   }
   log.warn(warningMsg);
   if (emitter && emitter.listenerCount('error') > 0) {
