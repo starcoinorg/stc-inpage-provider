@@ -1,6 +1,6 @@
 {
   "name": "@starcoin/stc-inpage-provider",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A JavaScript Starcoin provider that connects to the wallet over a stream.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
